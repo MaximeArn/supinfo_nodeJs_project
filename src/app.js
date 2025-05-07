@@ -1,23 +1,18 @@
+import "dotenv/config";
 import express from "express";
-import mongoose from "mongoose";
 
 import userRoute from "./routes/user.js";
 import restaurantRoute from "./routes/restaurant.js";
 import menuRoute from "./routes/menu.js";
+import { connectToDatabase } from "./config/database.js";
 
 const app = express();
 
-mongoose
-  .connect("mongodb://localhost:27017/e-commerce")
-  .then(() => {
-    console.log("Connected to the database");
-  })
-  .catch((error) => {
-    console.error("Error connecting to the database:", error);
-  });
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// exit the app if error occurs
+await connectToDatabase();
 
 app.use((req, res, next) => {
   const { method, body } = req;
@@ -46,6 +41,7 @@ app.use((req, res) => {
   res.status(404).json({ message: `API not found at ${req.url}` });
 });
 
-app.listen(8080, () => {
-  console.log("Server started on port 8080");
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server started on port ${PORT}`);
 });
