@@ -1,31 +1,57 @@
-# 📃 MongoDB Setup Guide for FoodExpress (Josue-remy & Maxime)
+# FoodExpress API
 
-This project uses MongoDB as the database. To make it easier for the corrector to run the API locally, please follow these instructions to start a MongoDB container using Docker.
+FoodExpress is a RESTful API built with Node.js, Express, and MongoDB for managing users, restaurants, and menus.
 
-## 🚀 Launch the MongoDB Container
+## 🛠️ Installation
 
 ```bash
-docker run -d \
-  --name mongo-foodexpress \
-  -p 27017:27017 \
-  -e MONGO_INITDB_ROOT_USERNAME=food_express_username \
-  -e MONGO_INITDB_ROOT_PASSWORD=food_express_password \
-  -e MONGO_INITDB_DATABASE=food_express \
-  mongo
+git clone <repo_url>
+cd foodexpress-api
+npm install
 ```
 
-## 🔐 Connection String Used in the Project
+Create a `.env` file at the root of the project:
 
 ```env
-MONGO_URI=mongodb://food_express_username:food_express_password@localhost:27017/food_express?authSource=admin
+PORT=8080
+MONGODB_URI=mongodb://localhost:27017/food_express
+JWT_SECRET=your_jwt_secret
+JWT_EXPIRES_IN=1d
 ```
 
-## ⚡️ Stopping the Container
+## 🌱 Seeding the database
+
+To populate the database with initial users, restaurants, and menus:
 
 ```bash
-docker stop mongo-foodexpress
+node scripts/seed.js
 ```
 
+### 👥 Test users available after seeding
+
+- **Admin user**
+
+  - Email: `admin@example.com`
+  - Password: `password123`
+  - Role: `admin`
+
+- **Regular user**
+  - Email: `john@example.com`
+  - Password: `password123`
+  - Role: `user`
+
+These accounts can be used to test authenticated and role-based routes.
+
+## 📚 Documentation
+
+The API is documented using Swagger and available at:
+
+```
+GET http://localhost:<PORT>/api-docs
+```
+
+## 🚀 Running the project
+
 ```bash
-docker rm -f mongo-foodexpress
+npm run dev
 ```

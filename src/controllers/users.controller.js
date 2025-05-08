@@ -1,19 +1,27 @@
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+
+import createToken from "../utils/createToken.js";
 
 export async function registerUser(req, res) {
   try {
     const { username, email, password } = req.body;
 
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
       return res.status(400).json({ response: "Email already in use" });
     }
 
+    const existingUsername = await User.findOne({ username });
+    if (existingUsername) {
+      return res.status(400).json({ response: "Username already in use" });
+    }
+
     const newUser = new User({ username, email, password });
-    const data = await newUser.save();
-    return res.status(200).json(data);
+    const savedUser = await newUser.save();
+    const token = createToken(savedUser);
+
+    return res.status(200).json({ token });
   } catch (err) {
     console.error(err);
     return res.status(500).json({ response: "Internal server error" });
@@ -34,12 +42,7 @@ export async function loginUser(req, res) {
       return res.status(400).json({ response: "Invalid credentials" });
     }
 
-    const token = jwt.sign(
-      { id: user._id, role: user.role },
-      process.env.JWT_SECRET,
-      { expiresIn: process.env.JWT_EXPIRES_IN }
-    );
-
+    const token = createToken(user);
     return res.status(200).json({ token });
   } catch (err) {
     console.error(err);

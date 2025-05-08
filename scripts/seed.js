@@ -3,9 +3,9 @@ import mongoose from "mongoose";
 import "dotenv/config";
 import bcrypt from "bcrypt";
 
-import User from "../models/User.js";
-import Restaurant from "../models/Restaurant.js";
-import Menu from "../models/Menu.js";
+import User from "../src/models/User.js";
+import Restaurant from "../src/models/Restaurant.js";
+import Menu from "../src/models/Menu.js";
 
 async function seed() {
   try {
@@ -30,8 +30,6 @@ async function seed() {
         role: "admin",
       },
       { username: "john", email: "john@example.com", password },
-      { username: "alice", email: "alice@example.com", password },
-      { username: "bob", email: "bob@example.com", password },
     ]);
     console.log("👤 Users created");
 
