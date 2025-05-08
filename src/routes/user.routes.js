@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { hashPassword } from "../middlewares/hashPassword.js";
+// controllers
 import {
   registerUser,
   loginUser,
@@ -7,13 +7,17 @@ import {
   updateUser,
   deleteUser,
 } from "../controllers/users.controller.js";
+//middlewares
+import verifyToken from "../middlewares/verifyToken.js";
+import hashPassword from "../middlewares/hashPassword.js";
 
 const router = Router();
 
 router.post("/register", hashPassword, registerUser);
-router.put("/login", loginUser);
-router.get("/:id", getUserById);
-router.put("/:id", hashPassword, updateUser);
-router.delete("/:id", deleteUser);
+router.post("/login", loginUser);
+
+router.get("/:id", verifyToken, getUserById);
+router.put("/:id", verifyToken, hashPassword, updateUser);
+router.delete("/:id", verifyToken, deleteUser);
 
 export default router;

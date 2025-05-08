@@ -1,4 +1,5 @@
 import { Router } from "express";
+import verifyToken from "../middlewares/verifyToken.js";
 import {
   createMenu,
   searchMenu,
@@ -10,11 +11,12 @@ import {
 
 const router = Router();
 
-router.post("/", createMenu);
 router.post("/search", searchMenu);
 router.get("/", getAllMenus);
 router.get("/:id", getMenuById);
-router.put("/:id", updateMenu);
-router.delete("/:id", deleteMenu);
+
+router.post("/", verifyToken, createMenu);
+router.put("/:id", verifyToken, updateMenu);
+router.delete("/:id", verifyToken, deleteMenu);
 
 export default router;

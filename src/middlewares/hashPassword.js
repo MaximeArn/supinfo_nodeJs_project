@@ -1,6 +1,6 @@
 import { hash } from "bcrypt";
 
-export async function hashPassword(req, res, next) {
+export default async function hashPassword(req, res, next) {
   if (req.body.password) {
     try {
       const saltRounds = 10;
