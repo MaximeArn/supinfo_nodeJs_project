@@ -13,10 +13,11 @@ npm install
 Create a `.env` file at the root of the project:
 
 ```env
-PORT=8080
-MONGODB_URI=mongodb://food_express_username:food_express_password@localhost:27017/food_express?authSource=admin
-JWT_SECRET=your_jwt_secret
-JWT_EXPIRES_IN=1d
+PORT="9283"
+MONGODB_URI="mongodb://food_express_username:food_express_password@localhost:27017/food_express?authSource=admin"
+MONGODB_URI_TEST="mongodb://localhost:27017/foodexpress_test"
+JWT_SECRET="tz38yecvFGzjzidvzej_6767eujzyh72728zjdviez"
+JWT_EXPIRES_IN="1h"
 ```
 
 ## 🚀 Launch the MongoDB Container
