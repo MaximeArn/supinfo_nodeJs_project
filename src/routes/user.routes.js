@@ -10,14 +10,15 @@ import {
 //middlewares
 import verifyToken from "../middlewares/verifyToken.js";
 import hashPassword from "../middlewares/hashPassword.js";
+import validateObjectId from "../middlewares/validateObjectId.js";
 
 const router = Router();
 
 router.post("/register", hashPassword, registerUser);
 router.post("/login", loginUser);
 
-router.get("/:id", verifyToken, getUserById);
-router.put("/:id", verifyToken, hashPassword, updateUser);
-router.delete("/:id", verifyToken, deleteUser);
+router.get("/:id", verifyToken, validateObjectId, getUserById);
+router.put("/:id", verifyToken, hashPassword, validateObjectId, updateUser);
+router.delete("/:id", verifyToken, validateObjectId, deleteUser);
 
 export default router;

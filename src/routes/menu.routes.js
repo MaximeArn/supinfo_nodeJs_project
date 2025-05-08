@@ -1,22 +1,22 @@
 import { Router } from "express";
-import verifyToken from "../middlewares/verifyToken.js";
+// controllers
 import {
   createMenu,
-  searchMenu,
   getAllMenus,
   getMenuById,
   updateMenu,
   deleteMenu,
 } from "../controllers/menus.controller.js";
-
+// middlewares
+import verifyToken from "../middlewares/verifyToken.js";
+import validateObjectId from "../middlewares/validateObjectId.js";
 const router = Router();
 
-router.post("/search", searchMenu);
 router.get("/", getAllMenus);
-router.get("/:id", getMenuById);
+router.get("/:id", validateObjectId, getMenuById);
 
-router.post("/", verifyToken, createMenu);
-router.put("/:id", verifyToken, updateMenu);
-router.delete("/:id", verifyToken, deleteMenu);
+router.post("/", verifyToken, validateObjectId, createMenu);
+router.put("/:id", verifyToken, validateObjectId, updateMenu);
+router.delete("/:id", verifyToken, validateObjectId, deleteMenu);
 
 export default router;
