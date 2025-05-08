@@ -10,14 +10,27 @@ import {
 // middlewares
 import validateObjectId from "../middlewares/validateObjectId.js";
 import verifyToken from "../middlewares/verifyToken.js";
+import checkIsAdmin from "../middlewares/checkIsAdmin.js";
 
 const router = Router();
 
 router.get("/", getAllRestaurants);
 router.get("/:id", validateObjectId, getRestaurantById);
 
-router.post("/", verifyToken, createRestaurant);
-router.put("/:id", verifyToken, validateObjectId, updateRestaurant);
-router.delete("/:id", verifyToken, validateObjectId, deleteRestaurant);
+router.post("/", verifyToken, checkIsAdmin, createRestaurant);
+router.put(
+  "/:id",
+  verifyToken,
+  checkIsAdmin,
+  validateObjectId,
+  updateRestaurant
+);
+router.delete(
+  "/:id",
+  verifyToken,
+  checkIsAdmin,
+  validateObjectId,
+  deleteRestaurant
+);
 
 export default router;
