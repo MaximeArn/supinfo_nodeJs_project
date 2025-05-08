@@ -14,9 +14,31 @@ Create a `.env` file at the root of the project:
 
 ```env
 PORT=8080
-MONGODB_URI=mongodb://localhost:27017/food_express
+MONGODB_URI=mongodb://food_express_username:food_express_password@localhost:27017/food_express?authSource=admin
 JWT_SECRET=your_jwt_secret
 JWT_EXPIRES_IN=1d
+```
+
+## 🚀 Launch the MongoDB Container
+
+```bash
+docker run -d \
+  --name mongo-foodexpress \
+  -p 27017:27017 \
+  -e MONGO_INITDB_ROOT_USERNAME=food_express_username \
+  -e MONGO_INITDB_ROOT_PASSWORD=food_express_password \
+  -e MONGO_INITDB_DATABASE=food_express \
+  mongo
+```
+
+## ⚡️ Stopping the Container
+
+```bash
+docker stop mongo-foodexpress
+```
+
+```bash
+docker rm -f mongo-foodexpress
 ```
 
 ## 🌱 Seeding the database
@@ -24,7 +46,7 @@ JWT_EXPIRES_IN=1d
 To populate the database with initial users, restaurants, and menus:
 
 ```bash
-node scripts/seed.js
+npm run seed
 ```
 
 ### 👥 Test users available after seeding
