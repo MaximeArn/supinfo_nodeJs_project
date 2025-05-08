@@ -1,6 +1,8 @@
 // External imports
 import "dotenv/config";
 import express from "express";
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./config/swagger.js";
 
 // Database connection
 import { connectToDatabase } from "./config/database.js";
@@ -14,6 +16,7 @@ await connectToDatabase();
 
 const app = express();
 
+app.use("/api-doc", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
