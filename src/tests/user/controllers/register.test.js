@@ -2,12 +2,12 @@ import mongoose from "mongoose";
 import { jest } from "@jest/globals";
 import dotenv from "dotenv";
 
-import User from "../../models/User.js";
-import { registerUser } from "../../controllers/users.controller.js";
+import User from "../../../models/User.js";
+import { registerUser } from "../../../controllers/users.controller.js";
 
 dotenv.config();
 
-describe("registerUser", () => {
+describe("user registration", () => {
   let req, res;
 
   beforeAll(async () => {

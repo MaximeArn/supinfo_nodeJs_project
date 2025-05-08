@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 import { jest } from "@jest/globals";
-import User from "../../models/User.js";
-import { loginUser } from "../../controllers/users.controller.js";
+import User from "../../../models/User.js";
+import { loginUser } from "../../../controllers/users.controller.js";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt";
 dotenv.config();
 
-describe("loginUser", () => {
+describe("user loging in", () => {
   let req, res;
 
   beforeAll(async () => {
