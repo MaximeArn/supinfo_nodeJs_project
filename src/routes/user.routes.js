@@ -12,6 +12,7 @@ import verifyToken from "../middlewares/verifyToken.js";
 import hashPassword from "../middlewares/hashPassword.js";
 import validateObjectId from "../middlewares/validateObjectId.js";
 import validateBody from "../middlewares/validateBody.js";
+import canAccessUser from "../middlewares/canAccessUser.js";
 //validators
 import {
   registerUserSchema,
@@ -102,7 +103,7 @@ router.post("/login", loginUser);
  *       404:
  *         description: User not found
  */
-router.get("/:id", verifyToken, validateObjectId, getUserById);
+router.get("/:id", verifyToken, validateObjectId, canAccessUser, getUserById);
 
 /**
  * @swagger
@@ -141,6 +142,7 @@ router.put(
   "/:id",
   verifyToken,
   validateObjectId,
+  canAccessUser,
   validateBody(updateUserSchema),
   hashPassword,
   updateUser
@@ -166,6 +168,6 @@ router.put(
  *       404:
  *         description: User not found
  */
-router.delete("/:id", verifyToken, validateObjectId, deleteUser);
+router.delete("/:id", verifyToken, validateObjectId, canAccessUser, deleteUser);
 
 export default router;
