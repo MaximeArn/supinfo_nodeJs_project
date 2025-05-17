@@ -70,7 +70,7 @@ These accounts can be used to test authenticated and role-based routes.
 The API is documented using Swagger and available at:
 
 ```
-GET http://localhost:<PORT>/api-docs
+http://localhost:<PORT>/api-doc
 ```
 
 ## 🚀 Running the project
